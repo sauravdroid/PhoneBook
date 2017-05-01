@@ -52,6 +52,8 @@ public class StudentsFragment extends Fragment {
                         intent.putExtra("roll",studentList.get(position).getRoll());
                         intent.putExtra("username",studentList.get(position).getUsername());
                         intent.putExtra("user","student");
+                        intent.putExtra("first_name", studentList.get(position).getFirstName());
+                        intent.putExtra("last_name", studentList.get(position).getLastName());
                         startActivity(intent);
                     }
                 })
@@ -103,6 +105,11 @@ public class StudentsFragment extends Fragment {
             studentList.add(user);
         }
         return studentList;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

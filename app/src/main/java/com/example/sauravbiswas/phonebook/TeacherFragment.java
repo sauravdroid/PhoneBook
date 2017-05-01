@@ -29,22 +29,26 @@ public class TeacherFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     ArrayList<UserContainer> studentList;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.teacher_fragment,container,false);
+        View view = inflater.inflate(R.layout.teacher_fragment, container, false);
         getActivity().setTitle("Teachers");
         recyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         getAllStudents();
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
+                    @Override
+                    public void onItemClick(View view, int position) {
                         Intent intent = new Intent(getActivity(), UserProfile.class);
                         intent.putExtra("name", studentList.get(position).getFirstName() + " " + studentList.get(position).getLastName());
-                        intent.putExtra("email",studentList.get(position).getEmail());
-                        intent.putExtra("department",studentList.get(position).getDepartment());
-                        intent.putExtra("user","teacher");
-                        intent.putExtra("username",studentList.get(position).getUsername());
+                        intent.putExtra("email", studentList.get(position).getEmail());
+                        intent.putExtra("department", studentList.get(position).getDepartment());
+                        intent.putExtra("user", "teacher");
+                        intent.putExtra("username", studentList.get(position).getUsername());
+                        intent.putExtra("first_name", studentList.get(position).getFirstName());
+                        intent.putExtra("last_name", studentList.get(position).getLastName());
                         startActivity(intent);
                     }
                 })
@@ -52,14 +56,14 @@ public class TeacherFragment extends Fragment {
         return view;
     }
 
-    public void getAllStudents(){
+    public void getAllStudents() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = "http://10.0.2.2:8000/user/all/teachers";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.d("Response:",response.toString());
+                Log.d("Response:", response.toString());
 
                 MyAdapter adapter = null;
                 try {
@@ -75,7 +79,7 @@ public class TeacherFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error Occured",error.toString());
+                Log.d("Error Occured", error.toString());
             }
         });
         queue.add(jsonArrayRequest);
@@ -83,14 +87,14 @@ public class TeacherFragment extends Fragment {
 
     public ArrayList<UserContainer> getStudentList(JSONArray response) throws JSONException {
         studentList = new ArrayList<UserContainer>();
-        for(int i=0;i<response.length();i++){
-            JSONObject student = (JSONObject)response.get(i);
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject student = (JSONObject) response.get(i);
             String first_name = student.getString("first_name");
             String last_name = student.getString("last_name");
             String username = student.getString("username");
             String email = student.getString("email");
             String department = student.getString("department");
-            UserContainer user = new UserContainer(first_name,last_name,email,department,username);
+            UserContainer user = new UserContainer(first_name, last_name, email, department, username);
             studentList.add(user);
         }
         return studentList;
