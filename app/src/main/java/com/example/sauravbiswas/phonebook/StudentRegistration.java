@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StudentRegistration extends Fragment {
-    EditText firstName, lastName, email, password, username, department, rollNumber;
+    EditText firstName, lastName, email, password, username, department, rollNumber,phone_no;
     Button btnRegister;
 
     @Nullable
@@ -35,6 +35,7 @@ public class StudentRegistration extends Fragment {
         username = (EditText) view.findViewById(R.id.edit_student_username);
         department = (EditText) view.findViewById(R.id.edit_student_department);
         rollNumber = (EditText) view.findViewById(R.id.edit_student_roll_number);
+        phone_no = (EditText)view.findViewById(R.id.edit_student_phone_no);
         btnRegister = (Button) view.findViewById(R.id.btn_register_student);
         final RequestQueue queue = Volley.newRequestQueue(getActivity());
         final String url = "http://10.0.2.2:8000/user/add/student";
@@ -49,6 +50,7 @@ public class StudentRegistration extends Fragment {
                             public void onResponse(String response) {
                                 // Display the first 500 characters of the response string.
                                 Toast.makeText(getActivity(),"Response is: " + response,Toast.LENGTH_SHORT).show();
+                                getActivity().finish();
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -68,6 +70,7 @@ public class StudentRegistration extends Fragment {
                         params.put("password", password.getText().toString());
                         params.put("department", department.getText().toString());
                         params.put("roll", rollNumber.getText().toString());
+                        params.put("phone_no", phone_no.getText().toString());
                         return params;
                     }
                 };

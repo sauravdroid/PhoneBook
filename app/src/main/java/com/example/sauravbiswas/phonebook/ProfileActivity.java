@@ -69,27 +69,7 @@ public class ProfileActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.profile, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -118,15 +98,23 @@ public class ProfileActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_camera:
 //                fragment = new StudentsFragment();
-                intent = new Intent(this, RegistrationActivity.class);
-                intent.putExtra("fragment",0);
-                startActivity(intent);
+                if(MainActivity.pref.getBoolean("isAdmin",false)) {
+                    intent = new Intent(this, RegistrationActivity.class);
+                    intent.putExtra("fragment", 0);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(),"Not authorized",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.nav_gallery:
 //                fragment = new TeacherFragment();
-                intent = new Intent(this, RegistrationActivity.class);
-                intent.putExtra("fragment",1);
-                startActivity(intent);
+                if(MainActivity.pref.getBoolean("isAdmin",false)) {
+                    intent = new Intent(this, RegistrationActivity.class);
+                    intent.putExtra("fragment", 1);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(),"Not authorized",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.nav_send:
                 Toast.makeText(getApplicationContext(),"User Logged out",Toast.LENGTH_SHORT).show();

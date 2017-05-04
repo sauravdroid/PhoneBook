@@ -30,6 +30,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     EditText editFirstName,editLastName,editEmail,editRoll,editDepartment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sample saurav = new sample(23,"Saurav Biswas",true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         displayCard = (CardView) findViewById(R.id.cardView);
@@ -46,9 +47,9 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         editDepartment = (EditText)findViewById(R.id.edit_department);
         editRoll = (EditText)findViewById(R.id.edit_roll);
         editEmail = (EditText)findViewById(R.id.edit_email);
-
         btnDelete = (Button) findViewById(R.id.btn_delete);
         btnEdit = (Button) findViewById(R.id.btn_edit);
+        checkAdmin();
         Intent intent = getIntent();
         roll.setText(intent.getStringExtra("roll"));
         if (intent.getStringExtra("user").equalsIgnoreCase("teacher")) {
@@ -94,7 +95,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                         }
                     }) {
                         @Override
-                        protected Map<String, String> getParams() {
+                        protected Map<String, String> getParams() { //Adds the data for the post request
                             Map<String, String> params = new HashMap<>();
                             // the POST parameters:
                             params.put("username", getIntent().getStringExtra("username"));
@@ -120,6 +121,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                                 public void onResponse(String response) {
                                     // Display the first 500 characters of the response string.
                                     Toast.makeText(getApplicationContext(), "Response is: " + response, Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             }, new Response.ErrorListener() {
                         @Override
@@ -164,6 +166,12 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         updateCard.setVisibility(View.INVISIBLE);
         btnEdit.setText("Edit");
         btnDelete.setText("Delete");
+    }
+    public void checkAdmin(){
+        if(!MainActivity.pref.getBoolean("isAdmin",false)){
+            btnDelete.setVisibility(View.INVISIBLE);
+            btnEdit.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

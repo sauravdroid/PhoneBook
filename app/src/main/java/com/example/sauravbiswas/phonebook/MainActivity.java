@@ -69,12 +69,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         JSONObject user = jsonResponse.getJSONObject("user");
                         String username = user.getString("username");
                         String email = user.getString("email");
-                        Toast.makeText(getApplicationContext(), "Successful Login", Toast.LENGTH_SHORT).show();
-                        saveUserDetails(username, email);
+                        Boolean isAdmin = user.getBoolean("admin");
+                        Toast.makeText(getApplicationContext(), "Successful Login "+isAdmin, Toast.LENGTH_SHORT).show();
+                        saveUserDetails(username, email,isAdmin);
                         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        finish();
                         startActivity(intent);
                     } else {
-                        Toast.makeText(getApplicationContext(), "Wrong Username or password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Wrong Username or password or not authorized", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -103,10 +105,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         deleteUserDetails();
     }
 
-    public static void saveUserDetails(String username, String email) {
+    public static void saveUserDetails(String username, String email,Boolean isAdmin) {
         editor.putString("username", username);
         editor.putString("email", email);
         editor.putBoolean("isLoggedIn", true);
+        editor.putBoolean("isAdmin", isAdmin);
         editor.commit();
     }
 

@@ -41,7 +41,7 @@ public class StudentsFragment extends Fragment {
         getActivity().setTitle("Students");
         recyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         getAllStudents();
-        recyclerView.addOnItemTouchListener(
+        recyclerView.addOnItemTouchListener( //Handles recycler view clicks
                 new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -110,6 +110,8 @@ public class StudentsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        getAllStudents();
+//        Toast.makeText(getActivity(),"On Resume",Toast.LENGTH_SHORT).show();
     }
 
     @Override

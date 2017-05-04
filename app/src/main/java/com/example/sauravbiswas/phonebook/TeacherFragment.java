@@ -101,6 +101,12 @@ public class TeacherFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getAllStudents();
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }

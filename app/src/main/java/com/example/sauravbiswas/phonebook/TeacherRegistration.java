@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class TeacherRegistration extends Fragment {
 
-    EditText firstName, lastName, email, password, username, department;
+    EditText firstName, lastName, email, password, username, department,phone_no;
     Button btnRegister;
 
     @Nullable
@@ -36,6 +36,7 @@ public class TeacherRegistration extends Fragment {
             password = (EditText) view.findViewById(R.id.edit_student_password);
             username = (EditText) view.findViewById(R.id.edit_student_username);
             department = (EditText) view.findViewById(R.id.edit_student_department);
+            phone_no = (EditText)view.findViewById(R.id.edit_teacher_phone_no);
             btnRegister = (Button) view.findViewById(R.id.btn_register);
             final RequestQueue queue = Volley.newRequestQueue(getActivity());
             final String url = "http://10.0.2.2:8000/user/add/teacher";
@@ -49,6 +50,7 @@ public class TeacherRegistration extends Fragment {
                                 public void onResponse(String response) {
                                     // Display the first 500 characters of the response string.
                                     Toast.makeText(getActivity(), "Response is: " + response, Toast.LENGTH_SHORT).show();
+                                    getActivity().finish();
                                 }
                             }, new Response.ErrorListener() {
                         @Override
@@ -66,6 +68,7 @@ public class TeacherRegistration extends Fragment {
                             params.put("email", email.getText().toString());
                             params.put("password", password.getText().toString());
                             params.put("department", department.getText().toString());
+                            params.put("phone_no", phone_no.getText().toString());
                             return params;
                         }
                     };
