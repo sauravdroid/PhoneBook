@@ -54,6 +54,7 @@ public class StudentsFragment extends Fragment {
                         intent.putExtra("user","student");
                         intent.putExtra("first_name", studentList.get(position).getFirstName());
                         intent.putExtra("last_name", studentList.get(position).getLastName());
+                        intent.putExtra("phone_no", studentList.get(position).getPhoneNo());
                         startActivity(intent);
                     }
                 })
@@ -100,7 +101,8 @@ public class StudentsFragment extends Fragment {
             String email = student.getString("email");
             String roll = student.getString("roll");
             String department = student.getString("department");
-            UserContainer user = new UserContainer(first_name, last_name, email, department, username);
+            String phone_no = student.getString("phone_no");
+            UserContainer user = new UserContainer(first_name, last_name, email, department, username,phone_no);
             user.setRoll(roll);
             studentList.add(user);
         }

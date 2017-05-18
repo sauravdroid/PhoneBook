@@ -23,11 +23,11 @@ import java.util.Map;
 
 public class UserProfile extends AppCompatActivity implements View.OnClickListener {
     Toolbar toolbar;
-    TextView name, email, department, roll, textEmail, textRoll;
+    TextView name, email, department, roll, textEmail, textRoll,phone_no;
     Button btnDelete, btnEdit;
     CardView displayCard, updateCard;
     Boolean isUpdateClicked = false;
-    EditText editFirstName,editLastName,editEmail,editRoll,editDepartment;
+    EditText editFirstName,editLastName,editEmail,editRoll,editDepartment,editPhoneNo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sample saurav = new sample(23,"Saurav Biswas",true);
@@ -41,12 +41,14 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         roll = (TextView) findViewById(R.id.text_roll);
         textEmail = (TextView) findViewById(R.id.textview_email);
         textRoll = (TextView) findViewById(R.id.textview_roll);
+        phone_no = (TextView)findViewById(R.id.text_phone_no);
 
         editFirstName = (EditText)findViewById(R.id.edit_first_name);
         editLastName = (EditText)findViewById(R.id.edit_last_name);
         editDepartment = (EditText)findViewById(R.id.edit_department);
         editRoll = (EditText)findViewById(R.id.edit_roll);
         editEmail = (EditText)findViewById(R.id.edit_email);
+        editPhoneNo = (EditText)findViewById(R.id.edit_phone_no);
         btnDelete = (Button) findViewById(R.id.btn_delete);
         btnEdit = (Button) findViewById(R.id.btn_edit);
         checkAdmin();
@@ -60,6 +62,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
         }
         name.setText(intent.getStringExtra("name"));
+        phone_no.setText(intent.getStringExtra("phone_no"));
         editFirstName.setText(intent.getStringExtra("first_name"));
         editLastName.setText(intent.getStringExtra("last_name"));
 
@@ -69,6 +72,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         department.setText(intent.getStringExtra("department"));
         editDepartment.setText(intent.getStringExtra("department"));
         editRoll.setText(intent.getStringExtra("roll"));
+        editPhoneNo.setText(intent.getStringExtra("phone_no"));
         btnEdit.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
     }
@@ -138,6 +142,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                             params.put("first_name", editFirstName.getText().toString());
                             params.put("last_name", editLastName.getText().toString());
                             params.put("department", editDepartment.getText().toString());
+                            params.put("phone_no", editPhoneNo.getText().toString());
                             params.put("roll", editRoll.getText().toString());
                             params.put("user_type", getIntent().getStringExtra("user"));
                             return params;
