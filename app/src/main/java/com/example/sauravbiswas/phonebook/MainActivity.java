@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String username = user.getString("username");
                         String email = user.getString("email");
                         Boolean isAdmin = user.getBoolean("admin");
-                        Toast.makeText(getApplicationContext(), "Successful Login "+isAdmin, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Successful Login", Toast.LENGTH_SHORT).show();
                         saveUserDetails(username, email,isAdmin);
                         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         finish();
